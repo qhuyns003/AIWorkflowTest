@@ -57,7 +57,14 @@ Mục tiêu: có kế hoạch đủ chi tiết để code một lần đúng.
 1. **Khảo sát kỹ thuật**: pattern có sẵn, API/DB/message, convention, test hiện có. Tái sử dụng trước.
 2. **Đề xuất phương án**: mỗi quyết định lớn → 2-3 phương án + ưu/nhược + đề xuất kèm lý do. Ghi trực tiếp vào bảng Mục 2 trong `02-design.md`.
 3. Soạn `02-design.md` (template): giải pháp, luồng/sequence, thay đổi theo service, API contract, DB migration+rollback, xử lý lỗi, bảo mật, hiệu năng, tương thích ngược, kế hoạch test, rủi ro.
-4. **Chia subtask** theo `reference/task-decomposition.md` (theo Nghiệp vụ / Yêu cầu, End-to-End) → soạn `03-tasks.md`.
+4. **Chia subtask** theo `reference/task-decomposition.md`:
+   - **QUY TẮC QUAN TRỌNG**:
+     - Chia theo Nghiệp vụ/Tính năng End-to-End (KHÔNG chia theo layer kỹ thuật)
+     - Subtask phải "đủ lớn" - một khối nghiệp vụ hoàn chỉnh
+     - Hạn chế số lượng: 2-4 subtasks (task nhỏ), 5-7 subtasks (task lớn)
+     - 1 subtask = 1 commit → dễ rollback nếu có lỗi
+   - Xem ví dụ chi tiết trong `reference/task-decomposition.md`
+   - Soạn `03-tasks.md` với bảng subtask rõ ràng
 5. **Review độc lập**: giao `design-review` đọc `01`+`02`+`03` và chỉ ra lỗ hổng.
 
 **Cổng G2**: Trao đổi các câu kỹ thuật chưa chốt hoặc rủi ro tiềm ẩn kèm phương án đề xuất. Trình bày thiết kế + bảng subtask. Ra khi người dùng duyệt.
