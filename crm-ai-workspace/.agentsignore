@@ -1,0 +1,50 @@
+# Build artifacts
+**/target/
+**/node_modules/
+**/dist/
+**/build/
+**/.gradle/
+
+# Secrets & Environment
+**/.env
+**/.env.*
+**/*.pem
+**/*.key
+**/*.p12
+**/*.keystore
+
+# Lock files (Large tokens, agent shouldn't read)
+**/package-lock.json
+**/pom.xml.releaseBackup
+**/yarn.lock
+**/pnpm-lock.yaml
+
+# IDE files
+**/.idea/
+**/.vscode/
+**/.settings/
+
+# Binary & Media
+**/*.jar
+**/*.war
+**/*.class
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.ico
+**/*.woff
+**/*.woff2
+**/*.ttf
+**/*.eot
+**/*.pdf
+
+# Logs & Temporary files
+**/*.log
+**/logs/
+**/tmp/
+**/temp/
+
+# OS metadata
+**/Thumbs.db
+**/.DS_Store

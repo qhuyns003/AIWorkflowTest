@@ -1,0 +1,10 @@
+{
+  "agentIgnoreFiles": [
+    ".gitignore",
+    ".kiroignore",
+    ".agentsignore"
+  ],
+  "enableSkills": true,
+  "wikiDirectory": ".wiki",
+  "ticketDocsDirectory": "docs/dev"
+}
