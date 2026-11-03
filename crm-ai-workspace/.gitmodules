@@ -1,10 +1,14 @@
 # Điền URL/branch thật của từng microservice.
 # .gitmodules chỉ khai báo nguồn + branch mặc định, KHÔNG ghim commit.
-[submodule "src/service-a"]
-	path = src/service-a
-	url = https://git.example.com/project/service-a.git
-	branch = develop
-[submodule "src/frontend"]
-	path = src/frontend
-	url = https://git.example.com/project/frontend.git
-	branch = develop
+[submodule "src/customer"]
+	path = src/customer
+	url = https://github.com/qhuyns003/MicroAI-customer
+	branch = main
+[submodule "src/identity"]
+	path = src/identity
+	url = https://github.com/qhuyns003/MicroAI-identity
+	branch = main
+[submodule "src/gateway"]
+	path = src/gateway
+	url = https://github.com/qhuyns003/MicroAI-gateway
+	branch = main

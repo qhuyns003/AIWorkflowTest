@@ -13,7 +13,13 @@
 
 Mỗi service có một thư mục tri thức riêng biệt, giúp AI chỉ nạp đúng ngữ cảnh của service đang xử lý để tiết kiệm token tối đa:
 
-### 🔹 Backend Service: `service-a`
+### 🔹 Backend Service: `customer`
+- [services/customer/overview.md](services/customer/overview.md): Tech stack (Java 21/Spring Boot 4.1.2), lệnh build/test, trạng thái skeleton.
+- [services/customer/architecture.md](services/customer/architecture.md): Package structure hiện tại và kiến trúc dự kiến.
+- [services/customer/api-contracts.md](services/customer/api-contracts.md): REST APIs (hiện tại: chưa có).
+- [services/customer/database.md](services/customer/database.md): Database schema (hiện tại: chưa cấu hình).
+
+### 🔹 Backend Service: `service-a` (Template/Reference)
 - [services/service-a/overview.md](services/service-a/overview.md): Mục đích, tech stack (Java/Spring Boot), biến môi trường, lệnh build/test.
 - [services/service-a/architecture.md](services/service-a/architecture.md): Cấu trúc phân tầng (Controller, Service, Repository, DTO) và luồng xử lý chính.
 - [services/service-a/api-contracts.md](services/service-a/api-contracts.md): Danh sách REST APIs và hợp đồng dữ liệu.
