@@ -56,6 +56,30 @@ docs/dev/<KEY>/    Hồ sơ kỹ thuật ticket (01-requirement, 02-design, 03-t
 state.md           Trạng thái workspace liên phiên – đọc đầu session
 ```
 
+## Model Tiering (Lựa chọn Model Tối Ưu)
+Khi có nhiều model khả dụng, chọn model phù hợp với độ phức tạp của task để tối ưu chi phí và tốc độ:
+
+| Loại Task | Model Khuyến Nghị | Effort | Lý Do |
+|---|---|---|---|
+| Architecture design, complex debugging, high-stakes decisions | **Opus / o1-Pro** | 🔴 High | Cần reasoning sâu, nhiều bước suy luận, quyết định quan trọng |
+| Feature implementation (đã có plan rõ ràng) | **Sonnet / Flash** | 🟡 Medium | Plan đã có, chỉ cần execute theo thiết kế, ít decision |
+| Refactoring, viết docs, viết test | **Flash / Lite** | 🟢 Low | Mechanical work, pattern lặp lại, ít creative thinking |
+| Quick fix (typo, config, log message) | **Flash / Lite** | 🟢 Low | Task đơn giản, 1-2 file, không cần reasoning |
+| Code review, impact analysis | **Sonnet / Pro** | 🟡 Medium | Cần đọc hiểu nhiều file, phân tích tác động, đánh giá risk |
+| Deep research, unfamiliar codebase exploration | **Opus / Sonnet** | 🔴 High | Cần khám phá, hiểu context, mapping dependencies |
+| Bug investigation (unclear root cause) | **Sonnet / Pro** | 🟡 Medium | Cần trace flow, reproduce, hypothesis testing |
+| Routine maintenance (update dependencies, format) | **Flash / Lite** | 🟢 Low | Thao tác đơn giản, theo checklist, ít risk |
+
+**Nguyên tắc:**
+- **Opus/Pro** (🔴 High Effort): Dành cho giai đoạn **Explore & Plan** (Bước 1-2 của dev-workflow), yêu cầu nhiều reasoning, decision-making phức tạp, hoặc có high-stakes impact
+- **Sonnet/Flash** (🟡 Medium Effort): Dành cho giai đoạn **Implement** (Bước 3) khi đã có thiết kế chi tiết, hoặc task cần đọc hiểu nhiều file nhưng decision đơn giản
+- **Flash/Lite** (🟢 Low Effort): Dành cho task mechanical, repetitive work, không có decision-making phức tạp, risk thấp
+
+**Ước lượng Effort:**
+- 🔴 **High**: Phức tạp logic, nhiều bất định, cần exploratory thinking, quyết định có tác động lớn
+- 🟡 **Medium**: Logic vừa phải, có sẵn pattern/plan, cần đọc hiểu context nhưng decision rõ ràng
+- 🟢 **Low**: Repetitive, mechanical, theo checklist/template, minimal decision-making
+
 ## Workflow Router
 | Nhiệm vụ / Prompt kích hoạt | Skill kích hoạt | Hồ sơ tài liệu yêu cầu |
 |---|---|---|
