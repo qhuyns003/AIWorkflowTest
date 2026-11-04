@@ -17,14 +17,15 @@ Submodule: `git submodule update --init <path>` · `git -C src/<svc> checkout <b
 1. **Wiki first**: Tra cứu `.wiki/` trước khi đọc mã nguồn `/src`. Nếu `.wiki/` trống/placeholder → bỏ qua, đọc code, sau đó cập nhật lại wiki. Khám phá rộng → giao sub-agent.
 2. **Không đoán nghiệp vụ & giải pháp**: Gặp điểm chưa rõ → hỏi người dùng bằng câu hỏi đánh số cụ thể kèm phương án đề xuất. Nếu có nhiều cách hiểu → trình bày tất cả, không tự ý chọn.
 3. **Explore → Plan → Implement → Verify**: Tuyệt đối không sửa code trước khi người dùng duyệt thiết kế tại Cổng G2.
-4. **Simplicity first**: Code tối giản giải đúng bài toán. Không thêm tính năng ngoài yêu cầu, không tạo abstraction cho code dùng một lần, không xử lý lỗi cho kịch bản không thể xảy ra. Nếu viết 200 dòng mà có thể giải bằng 50 dòng → viết lại.
-5. **Surgical changes**: Chỉ sửa đúng phần được yêu cầu. Không "cải tiến" code xung quanh, không refactor thứ chưa hỏng, không format lại file không liên quan. Nếu phát hiện dead code có sẵn → báo nhưng không tự xóa. Mọi dòng thay đổi phải truy vết được về yêu cầu của người dùng.
-6. **Không tự commit/push.** Tuyệt đối không tự chạy git commit/push. Không bao giờ push `docs/ba`, `docs/dev`, `docs/sit`, `state.md`. Cho phép commit & push `.wiki/` vì đây là **Source of Truth** chung của hệ thống.
-7. **Nhánh làm việc**: Mọi thay đổi mã nguồn phải ở nhánh `feature/<KEY>-<mô-tả>` hoặc `bugfix/...`, không sửa trực tiếp trên `develop` hay `master`.
-8. **Bảo mật tối thượng**: Không đưa secret, token, API key, mật khẩu hoặc dữ liệu khách hàng thật vào code, log, wiki hay tài liệu.
-9. **Tích hợp ngoài**: Jira, Confluence dùng CLI/MCP đã cấu hình; không tự gọi REST.
-10. **Rule of 2**: Nếu sửa cùng một lỗi kiểm thử >2 lần thất bại → dừng lại, báo người dùng, đề xuất hướng tiếp cận khác.
-11. **Chưa chạy verification → Không báo "xong"**: Luôn đưa bằng chứng kết quả build sạch thực tế.
+4. **Cascade Validation**: Khi Phase/Step ở trước bị sửa → bắt buộc kiểm tra lại (revalidate) các Phase sau đó đã chạy. Ví dụ: Sửa `01-requirement.md` (Phase 1) → phải review lại `02-design.md` (Phase 2) và `03-tasks.md` để đảm bảo vẫn đúng; nếu đã code (Phase 3) → phải check xem code đã implement có còn match với requirement mới không.
+5. **Simplicity first**: Code tối giản giải đúng bài toán. Không thêm tính năng ngoài yêu cầu, không tạo abstraction cho code dùng một lần, không xử lý lỗi cho kịch bản không thể xảy ra. Nếu viết 200 dòng mà có thể giải bằng 50 dòng → viết lại.
+6. **Surgical changes**: Chỉ sửa đúng phần được yêu cầu. Không "cải tiến" code xung quanh, không refactor thứ chưa hỏng, không format lại file không liên quan. Nếu phát hiện dead code có sẵn → báo nhưng không tự xóa. Mọi dòng thay đổi phải truy vết được về yêu cầu của người dùng.
+7. **Không tự commit/push.** Tuyệt đối không tự chạy git commit/push. Không bao giờ push `docs/ba`, `docs/dev`, `docs/sit`, `state.md`. Cho phép commit & push `.wiki/` vì đây là **Source of Truth** chung của hệ thống.
+8. **Nhánh làm việc**: Mọi thay đổi mã nguồn phải ở nhánh `feature/<KEY>-<mô-tả>` hoặc `bugfix/...`, không sửa trực tiếp trên `develop` hay `master`.
+9. **Bảo mật tối thượng**: Không đưa secret, token, API key, mật khẩu hoặc dữ liệu khách hàng thật vào code, log, wiki hay tài liệu.
+10. **Tích hợp ngoài**: Jira, Confluence dùng CLI/MCP đã cấu hình; không tự gọi REST.
+11. **Rule of 2**: Nếu sửa cùng một lỗi kiểm thử >2 lần thất bại → dừng lại, báo người dùng, đề xuất hướng tiếp cận khác.
+12. **Chưa chạy verification → Không báo "xong"**: Luôn đưa bằng chứng kết quả build sạch thực tế.
 
 ## Confirmation Gates
 | Cổng | Khi nào | Người dùng xác nhận |
@@ -79,6 +80,15 @@ Khi có nhiều model khả dụng, chọn model phù hợp với độ phức t
 - 🔴 **High**: Phức tạp logic, nhiều bất định, cần exploratory thinking, quyết định có tác động lớn
 - 🟡 **Medium**: Logic vừa phải, có sẵn pattern/plan, cần đọc hiểu context nhưng decision rõ ràng
 - 🟢 **Low**: Repetitive, mechanical, theo checklist/template, minimal decision-making
+
+**Tự động chọn Model & Effort:**
+- AI **tự đánh giá effort** của task dựa trên: độ phức tạp, số file ảnh hưởng, mức độ bất định, tác động của decision
+- AI **tự động đề xuất và sử dụng model** phù hợp với effort đã đánh giá
+- **Không cần hỏi người dùng** trừ khi:
+  - Task có high-stakes impact (production, security, data loss risk)
+  - Có nhiều phương án với trade-off khác nhau cần quyết định nghiệp vụ
+  - Người dùng chỉ định rõ model cụ thể trong yêu cầu
+- Ghi lại **effort level và lý do chọn model** vào phần đầu của `02-design.md` hoặc comment đầu task để minh bạch
 
 ## Workflow Router
 | Nhiệm vụ / Prompt kích hoạt | Skill kích hoạt | Hồ sơ tài liệu yêu cầu |

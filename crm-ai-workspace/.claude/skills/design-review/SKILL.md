@@ -10,7 +10,7 @@ description: >-
 Bạn là reviewer độc lập, chưa từng thấy quá trình viết tài liệu.
 
 ## Input
-Đọc `docs/dev/<KEY>/`: `01-requirement.md`, `02-design.md`, `03-tasks.md`.
+Đọc `docs/dev/<KEY>/`: `01-requirement.md`, `02-design.md`.
 Tra `.wiki/` và code khi cần đối chiếu.
 
 ## Checklist

@@ -1,124 +1,84 @@
-# Quy tắc chia Subtask (Task Decomposition)
+# Quy tắc chia Subtask
 
 ## 1. Định nghĩa Subtask
 
-**Subtask** là một **phần việc đủ lớn, có giá trị nghiệp vụ độc lập**, có thể:
-- Kiểm chứng end-to-end (build/test thành công)
-- Commit độc lập (1 subtask = 1 commit hoặc nhóm commit logic)
-- Rollback được nếu có lỗi
+**Subtask** là một **use case nghiệp vụ hoàn chỉnh** từ góc nhìn user, có thể:
+- Kiểm chứng end-to-end (build/test pass)
+- Commit độc lập và rollback được
 
-**KHÔNG phải**: Công việc quá nhỏ theo layer kỹ thuật (Entity, Service, Controller riêng lẻ)
+**KHÔNG phải**: Tầng kỹ thuật riêng lẻ (Entity, Service, Controller, Test tách rời)
 
-## 2. Nguyên tắc cốt lõi: Chia theo Nghiệp vụ End-to-End
+---
 
-### 2.1. Quy tắc BẮT BUỘC
-- ✅ **Chia theo Nghiệp vụ/Tính năng**: Một subtask = một khối nghiệp vụ hoàn chỉnh end-to-end
-- ❌ **CẤM chia theo tầng kỹ thuật**: Không tách DB, Service, Controller, UI thành các subtask riêng
-- ❌ **CẤM chia quá nhỏ theo API**: Không chia "1 API = 1 subtask" (trừ khi API đó là tính năng nghiệp vụ độc lập lớn)
+## 2. Nguyên tắc chia Subtask
 
-### 2.2. Subtask phải "đủ lớn"
-**Mức độ hợp lý của subtask**:
-- ✅ **Vừa phải**: Một khối nghiệp vụ hoàn chỉnh (VD: "Quản lý đơn hàng", "Tìm kiếm & lọc khách hàng")
-- ❌ **Quá nhỏ**: Từng thao tác đơn lẻ (VD: "Tạo Entity Order", "API GET /orders")
-- ❌ **Quá lớn**: Toàn bộ hệ thống trong 1 subtask
+### 2.1. Chia theo USE CASE, không chia theo Layer
+- ✅ **Đúng**: "Khách hàng tạo đơn hàng" (user story hoàn chỉnh - full stack từ DB đến UI)
+- ❌ **Sai**: "Setup Database", "Create API", "Write Tests" (chia theo layer kỹ thuật)
 
-### 2.3. Hạn chế số lượng subtask
-- **Lý do**: Mỗi subtask = 1 commit → nhiều subtask = nhiều commit → khó quản lý, khó rollback
-- **Khuyến nghị**: 
-  - Task nhỏ/vừa (≤ 1 tuần): **2-4 subtasks**
-  - Task lớn (> 1 tuần): **5-7 subtasks** (tối đa)
-  - Nếu > 7 subtasks → cân nhắc tách thành nhiều ticket
+**Câu hỏi kiểm tra**: _"User/Admin làm được việc GÌ sau khi subtask này xong?"_
+- Nếu trả lời: "Chưa làm được gì, chỉ có DB/API/config" → **SAI**
+- Phải trả lời được: "Khách tạo được đơn hàng mới" → **ĐÚNG**
 
-### 2.4. Ví dụ thực tế
+### 2.2. Giới hạn số lượng: 1-4 subtasks
+- **Nguyên tắc VÀNG**: Mọi task chỉ chia **1-4 subtasks**
+- Nếu cần > 4 subtasks → nhóm lại theo nghiệp vụ hoặc tách ticket
+- Lợi ích: Ít commit, dễ review, dễ rollback
 
-**✅ VÍ DỤ ĐÚNG:**
+---
 
-**Case 1: Cải tiến Webportal với 3 chức năng độc lập**
-- Yêu cầu: Thêm 3 tính năng: (A) Dashboard mới, (B) Export báo cáo, (C) Phân quyền user
-- **Chia subtask**: 
-  - T1: Tính năng A - Dashboard mới (Frontend + Backend API + DB + Test)
-  - T2: Tính năng B - Export báo cáo (Full stack end-to-end)
-  - T3: Tính năng C - Phân quyền user (Full stack end-to-end)
-- **Số subtask**: 3 (mỗi tính năng nghiệp vụ độc lập = 1 subtask)
+## 3. Ví dụ
 
-**Case 2: Xây dựng module Quản lý Đơn hàng (từ đầu)**
-- Yêu cầu: Tạo, xem, sửa, xóa, tìm kiếm đơn hàng
-- **Chia subtask**:
-  - T1: Setup Infrastructure (DB schema, base entities, config)
-  - T2: CRUD Đơn hàng (Create + Read + Update + Delete - all in one)
-  - T3: Tìm kiếm & Lọc đơn hàng (Search + Filter logic)
-  - T4: Validation & Business Rules (Status workflow, constraints)
-- **Số subtask**: 4 (nhóm theo nghiệp vụ logic, không tách từng API)
+### ✅ Đúng: Chia theo nghiệp vụ
 
-**Case 3: API tìm kiếm khách hàng (skeleton project)**
-- Yêu cầu: 1 API search customer by phone (build from scratch)
-- **Chia subtask**:
-  - T1: Setup Infrastructure (Dependencies, config, DB connection)
-  - T2: API Search Customer End-to-End (Entity + Repository + Service + Controller + Exception + Tests)
-- **Số subtask**: 2 (infrastructure + feature nghiệp vụ)
-
-**❌ VÍ DỤ SAI:**
-
-**Sai 1: Chia quá nhỏ theo layer**
+**Case 1: Quản lý Đơn hàng**
 ```
-❌ T1: Tạo Entity Customer
-❌ T2: Tạo Repository CustomerRepository
-❌ T3: Tạo Service CustomerService
-❌ T4: Tạo Controller CustomerController
-❌ T5: Viết Unit Tests
-→ Quá phân tán, khó kiểm chứng end-to-end
+T1: Tạo & Xem đơn (Khách tạo đơn mới, xem chi tiết - full stack)
+T2: Quản lý trạng thái (Cập nhật pending→confirmed→delivered, hủy đơn - full stack)
+T3: Tìm kiếm đơn (Filter theo ngày/trạng thái/khách - full stack)
 ```
 
-**Sai 2: Chia theo từng API riêng lẻ**
+**Case 2: Tìm kiếm khách hàng (task đơn giản)**
 ```
-❌ T1: API POST /customers (Create)
-❌ T2: API GET /customers/{id} (Read)
-❌ T3: API PUT /customers/{id} (Update)
-❌ T4: API DELETE /customers/{id} (Delete)
-→ Nên nhóm CRUD thành 1 subtask "Quản lý Customer"
+T1: Call center nhập SĐT → hệ thống trả thông tin khách (full stack end-to-end)
 ```
 
-**Sai 3: Chia quá nhiều subtask**
+### ❌ Sai: Chia theo layer kỹ thuật
+
 ```
-❌ T1-T12: 12 subtasks cho 1 feature nhỏ
-→ Quá nhiều commit, khó quản lý, khó rollback
+❌ T1: Tạo Entity Order
+❌ T2: Tạo Repository
+❌ T3: Tạo Service
+❌ T4: Tạo Controller
+❌ T5: Viết Tests
+→ Phải nhóm thành 1 subtask "Khách tạo đơn hàng"
 ```
 
 ---
 
-## 2. Quy trình & Thứ tự Thực thi Subtask trong Workflow
+## 4. Quy trình Thực thi
 
-### 2.1. Thực thi LẦN LƯỢT & BẮT BUỘC DUYỆT TỪNG SUBTASK
-Trong session làm việc, AI thực thi các subtask **lần lượt từng việc một** và **LUÔN DỪNG LẠI tại mỗi subtask để dev duyệt kết quả**:
-1. **Bắt đầu subtask**: Báo cáo subtask đang làm, phạm vi, lệnh kiểm chứng.
-2. **Triển khai End-to-End**: Viết test/code trọn vẹn trên các service liên quan của subtask đó.
-3. **Kiểm chứng thực tế**: Chạy lệnh test/build đã định nghĩa trong `03-tasks.md`, đảm bảo log sạch và test pass.
-4. **Cổng G3 (Bắt buộc duyệt)**: Trình bày bằng chứng kiểm thử (test pass) và diff code. **Dừng lại chờ dev duyệt**. Chỉ khi dev xác nhận "OK" mới được phép chuyển sang subtask kế tiếp.
+### 4.1. Thực thi tuần tự, bắt buộc duyệt từng subtask
+1. Implement subtask end-to-end (test + code)
+2. Chạy build/test, verify thành công
+3. **Cổng G3**: Trình bày kết quả test + diff, **chờ dev duyệt**
+4. Dev confirm "OK" → chuyển subtask tiếp theo
 
-### 2.2. Tuyệt đối KHÔNG chạy song song (No Parallel Execution)
-- **Cấm chạy song song**: Tuyệt đối không giao subtask chạy song song cho các sub-agents. 
-- **Lý do**: Mỗi subtask cần dev kiểm tra kết quả build/diff và chính thức duyệt tại Cổng G3 thì mới được phép bắt đầu subtask kế tiếp.
-- Mọi subtask bắt buộc thực thi tuần tự (Sequential only) trong phiên làm việc.
+### 4.2. CẤM chạy song song
+- Mỗi subtask cần dev duyệt tại G3 mới tiếp tục
+- Không giao cho sub-agent chạy song song
 
 ---
 
-## 3. Commit Strategy & Rollback
+## 5. Commit & Rollback
 
-### 3.1. Mối quan hệ Subtask - Commit
-- **Nguyên tắc**: 1 subtask hoàn thành = 1 commit chính (hoặc nhóm commit nhỏ logic)
-- **Commit message**: `[JIRA-KEY] type: <subtask description>`
-  - VD: `[DP-7] feat: API search customer end-to-end`
-- **Lợi ích**: Dễ rollback từng subtask nếu phát hiện lỗi
-
-### 3.2. Rollback Strategy
-- **Nếu subtask T3 có lỗi**: 
-  - `git revert <commit-T3>` → chỉ rollback T3, giữ nguyên T1, T2
-- **Nếu chia quá nhiều subtask**: 
-  - 10 subtask = 10 commits → phức tạp khi cần rollback
-  - Nên nhóm logic thành 3-5 subtasks lớn hơn
+- **1 subtask = 1 commit**: `[JIRA-KEY] feat: <use case description>`
+- **Rollback dễ dàng**: `git revert <commit-T2>` → chỉ rollback T2, giữ T1
+- **Ưu điểm 1-4 subtasks**: Ít commit → dễ quản lý, dễ hiểu context, rollback rõ ràng
 
 ---
 
-## 4. Theo dõi & Cập nhật Tiến độ
-- Cập nhật trạng thái trong `03-tasks.md` (`todo` / `doing` / `done` / `blocked`).
-- Sau khi dev duyệt G3: cập nhật tiến độ vào `state.md` (Phase 3 & Current Handover) để khi mở session mới có thể tiếp tục subtask tiếp theo ngay lập tức.
+## 6. Theo dõi tiến độ
+
+- Cập nhật `03-tasks.md`: `todo` / `doing` / `done` / `blocked`
+- Sau G3: cập nhật `state.md` để session sau tiếp tục
