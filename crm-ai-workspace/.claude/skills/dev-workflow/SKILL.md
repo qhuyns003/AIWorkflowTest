@@ -51,32 +51,66 @@ Trạng thái workspace: `state.md` (đồng bộ sau mỗi cổng).
 ## Bước 0 – Đọc BRD & Chia Subtask (Nghiệp vụ)
 **Mục tiêu**: Hiểu ticket tổng thể → Chia thành subtasks nghiệp vụ NGAY.
 
+**📝 CHECKLIST TỰ KIỂM TRA TRƯỚC KHI TRÌNH BÀY G0:**
+- [ ] Đã đọc BRD từ Jira (hoặc file/link được cung cấp)?
+- [ ] Đã tra cứu `.wiki/` để hiểu kiến trúc hiện tại và pattern có sẵn?
+- [ ] Đã đọc `reference/task-decomposition.md` để hiểu quy tắc chia subtask?
+- [ ] Subtasks được chia theo **nghiệp vụ end-to-end** (KHÔNG phải theo layer kỹ thuật)?
+- [ ] Mỗi subtask có **mục tiêu nghiệp vụ rõ ràng** (user story), không chỉ là "tạo Entity" hay "viết Controller"?
+- [ ] Số lượng subtasks hợp lý (1-2 tasks cho ticket nhỏ, max 3-4 cho ticket lớn)?
+- [ ] Mỗi subtask có thể **commit độc lập** và **rollback được**?
+- [ ] Đã ghi rõ **dependency** giữa các subtasks (nếu có)?
+- [ ] Đã tạo nhánh feature tại workspace root (chưa checkout submodule)?
+- [ ] Đã tạo cấu trúc thư mục `docs/dev/<KEY>/` với `03-tasks.md` và các thư mục `TX-<slug>/` (empty)?
+
+**Quy trình:**
+
 1. **Lấy Jira key + link BRD**. Thiếu → hỏi.
+
 2. **Checkout nhánh feature tại workspace root**: 
    - `git checkout -b feature/<KEY>-<mô-tả>` từ develop/main
    - Tạo cấu trúc docs trên nhánh feature này
+   - ⚠️ **Chưa checkout submodule** (để Phase 3)
+
 3. **Đọc BRD, phân tích AC**. Tra `.wiki/` nếu cần nắm luồng hiện tại.
-4. **Chia subtasks theo NGHIỆP VỤ** (đọc `reference/task-decomposition.md`):
-   - Phân tích AC → nhóm thành 1-4 subtask
-   - Mỗi subtask = 1 tính năng nghiệp vụ end-to-end
-   - **Quy tắc**: Chia theo AC, không theo technical layer
+
+4. **Chia subtasks theo NGHIỆP VỤ** (bắt buộc đọc `reference/task-decomposition.md`):
+   - Mỗi subtask = 1 use case nghiệp vụ hoàn chỉnh (end-to-end: từ API → Service → DB)
+   - **KHÔNG** chia theo layer (tránh: "T1: Entity + Repository", "T2: Service", "T3: Controller")
+   - **CÓ** chia theo use case (tốt: "T1: Tìm kiếm khách hàng", "T2: Tạo khách hàng mới")
+   - Ghi rõ dependency (T2 phụ thuộc T1 vì dùng chung Entity)
+
 5. **Tạo cấu trúc thư mục**:
    ```
    docs/dev/<KEY>/
-   ├── 03-tasks.md         # Bảng danh sách subtasks
-   ├── T1-<slug>/          # Thư mục subtask 1 (empty)
+   ├── 03-tasks.md         # Bảng danh sách subtasks (theo template)
+   ├── T1-<slug>/          # Thư mục subtask 1 (empty, chưa có 01/02-*.md)
    └── T2-<slug>/          # Thư mục subtask 2 (empty)
    ```
-6. **Đồng bộ `state.md`**: Tick `[x] Phase 0: Workspace Init`, ghi số subtasks (`0/N done`).
-7. **💡 Gợi ý Jira**: Chuyển sang "In Progress" (không bắt buộc).
+
+6. **Viết `03-tasks.md`** (theo template `templates/03-tasks.md`):
+   - Bảng subtasks với: ID, Tên (nghiệp vụ), Service, Phạm vi file, Dependency, AC, Build command, Status
+   - Section "Giải thích cách chia" (mandatory) - giải thích tại sao chia như vậy, từng subtask deliver gì
+
+7. **Self-Review**: Đọc lại checklist ở đầu Bước 0, đảm bảo tất cả đã ✅
+
+8. **Đồng bộ `state.md`**: Tick `[x] Phase 0: Workspace Init`, ghi số subtasks (`0/N done`).
+
+9. **💡 Gợi ý Jira**: Chuyển sang "In Progress" (không bắt buộc).
 
 **Output Phase 0**:
-- `03-tasks.md`: Bảng T1, T2, T3... (chưa có docs chi tiết)
-- Thư mục `TX-xxx/`: Đã tạo, chưa có file requirement/design
-- **Nhánh feature**: Đã checkout, docs được tạo trên nhánh này
+- ✅ `03-tasks.md`: Bảng T1, T2, T3... với giải thích cách chia (chưa có docs chi tiết 01/02)
+- ✅ Thư mục `TX-<slug>/`: Đã tạo, empty (chưa có 01-requirement.md, 02-design.md)
+- ✅ **Nhánh feature**: Đã checkout tại workspace root, docs được tạo trên nhánh này
+- ✅ **Submodules**: Chưa checkout (để Phase 3)
 
-**Note**: Checkout submodule sẽ thực hiện ở Phase 3 khi bắt đầu implementation.
-
+**Cổng G0**:
+- Trình bày kết quả sau Phase 0:
+  - Bảng subtasks (ID, tên, phạm vi, dependency)
+  - Giải thích cách chia (tại sao chia theo use case này, mỗi subtask deliver gì)
+  - Đề xuất thứ tự thực hiện (T1 → T2 → T3...)
+- Hỏi dev: "Có đồng ý với cách chia subtask này không?"
+- **DỪNG CHỜ XÁC NHẬN** - chỉ chuyển sang T1 Phase 1 khi dev approve G0
 ---
 
 ## Bước 1 → 2 → 3: Xử lý TỪNG Subtask Tuần tự (Phase 1 → 2 → 3)
@@ -95,20 +129,35 @@ Trạng thái workspace: `state.md` (đồng bộ sau mỗi cổng).
 **FOR EACH subtask TX in [T1, T2, ..., TN]:**
 
 #### 📋 Phase 1-TX: Requirement Analysis cho subtask TX → Cổng G1-TX
-Mục tiêu: hiểu đúng *cái gì* và *vì sao*, chưa bàn *làm thế nào*.
-1. **Tạo `TX-<slug>/01-requirement.md`** (copy template `templates/01-requirement.md`):
+
+**🚨 NGUYÊN TẮC VÀNG PHASE 1:**
+- ✅ CHỈ HỎI VÀ PHÂN TÍCH: Business logic, validation rules, edge cases nghiệp vụ, data meaning
+- ❌ TUYỆT ĐỐI KHÔNG HỎI: API path, HTTP method, response format, database choice, framework, library, code structure
+- 🎯 Mục tiêu: Hiểu đúng **cái gì** (WHAT) và **vì sao** (WHY), chưa bàn **làm thế nào** (HOW)
+
+**📝 CHECKLIST TỰ KIỂM TRA TRƯỚC KHI TRÌNH BÀY G1-TX:**
+- [ ] Đọc lại Section 10 (Câu hỏi & Quyết định nghiệp vụ) trong `01-requirement.md`
+- [ ] Kiểm tra: Có từ khóa kỹ thuật không? (API, endpoint, path, HTTP, JSON, REST, database, H2, PostgreSQL, format, wrapper, mode)
+- [ ] Nếu có → XÓA câu hỏi đó, ghi chú "Defer to Phase 2"
+- [ ] Chỉ giữ câu hỏi nghiệp vụ thuần túy
+- [ ] Các phương án đề xuất tối thiểu là 2 nếu có đề xuất
+
+**Quy trình:**
+
+1. **Tạo `TX-<slug>/01-requirement.md`** (theo template `templates/01-requirement.md`):
    - Mục tiêu subtask (1-2 câu)
-   - AC phủ (subset của AC tổng thể từ README.md)
    - Phạm vi in/out
-   - Business rules (nếu có)
+   - Business rules, business logic (nếu có)
    - Dữ liệu vào/ra
 
 2. **Hỏi & làm rõ** (tham khảo `reference/question-bank.md`):
    - Edge cases cho subtask này
-   - Điểm mâu thuẫn trong AC
-   - Validation rules cụ thể
+   - Validation rules cụ thể (nghiệp vụ, KHÔNG phải validation framework)
+   - Business rules chưa rõ
 
-3. **Ghi quyết định** vào `01-requirement.md` của subtask TX.
+3. **Self-Review**: Đọc lại Section 10, loại bỏ mọi câu hỏi kỹ thuật
+
+4. **Ghi quyết định** vào `01-requirement.md` của subtask TX.
 
 **Cổng G1-TX**:
 - Trình bày bản hiểu requirement của subtask TX

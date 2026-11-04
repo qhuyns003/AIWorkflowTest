@@ -15,13 +15,14 @@
 ### 2.1. Chia theo USE CASE, không chia theo Layer
 - ✅ **Đúng**: "Khách hàng tạo đơn hàng" (user story hoàn chỉnh - full stack từ DB đến UI)
 - ❌ **Sai**: "Setup Database", "Create API", "Write Tests" (chia theo layer kỹ thuật)
+- Sau khi chia pahri hỏi ý kiến dev đồng ý cách chia hay không
 
 **Câu hỏi kiểm tra**: _"User/Admin làm được việc GÌ sau khi subtask này xong?"_
 - Nếu trả lời: "Chưa làm được gì, chỉ có DB/API/config" → **SAI**
 - Phải trả lời được: "Khách tạo được đơn hàng mới" → **ĐÚNG**
 
 ### 2.2. Giới hạn số lượng: 1-4 subtasks
-- **Nguyên tắc VÀNG**: Mọi task chỉ chia **1-4 subtasks**
+- **Nguyên tắc VÀNG**: Mọi task chỉ chia **1-4 subtasks**, càng ít càng tốt
 - Nếu cần > 4 subtasks → nhóm lại theo nghiệp vụ hoặc tách ticket
 - Lợi ích: Ít commit, dễ review, dễ rollback
 

@@ -60,11 +60,28 @@
 
 ## 10. Câu hỏi & Quyết định nghiệp vụ
 
-> **Mục đích**: Track mọi điểm chưa rõ → hỏi dev/PO → ghi quyết định → cập nhật ngay vào các mục trên
+> **🚨 QUAN TRỌNG - Phase 1 = NGHIỆP VỤ ONLY:**
+> - ✅ CHỈ HỎI: Business logic, validation rules (nghiệp vụ), edge cases, data meaning
+> - ❌ KHÔNG HỎI: API path, HTTP method, response format, database choice, framework, code structure
+> 
+> **📖 Tham khảo**: Đọc `reference/question-bank.md` để biết phân biệt câu hỏi nghiệp vụ vs kỹ thuật
+> 
+> **Ví dụ câu hỏi NGHIỆP VỤ hợp lệ**:
+> - ✅ "Số điện thoại có phân biệt định dạng quốc gia (với +84) vs nội địa (với 0) không?"
+> - ✅ "Khách hàng inactive có được search không?"
+> - ✅ "Nếu số điện thoại trùng lặp (nhiều records), trả về record nào?"
+> 
+> **Ví dụ câu hỏi KỸ THUẬT (defer to Phase 2)**:
+> - ❌ "API endpoint path nên là `/api/customers/search?phone=xxx` hay `/api/customers/{phoneNumber}`?"
+> - ❌ "Response format có wrapper object không?"
+> - ❌ "Database dùng H2 in-memory hay file-based?"
 
 | # | Vấn đề cần chốt | Quyết định | Lý do | Impact (cập nhật mục nào?) |
 |---|-----------------|------------|-------|----------------------------|
-| Q1 | [Câu hỏi chưa rõ?] | [Phương án đã chọn] | [1 câu lý do] | Cập nhật Mục 4 (BR-X) / Mục 6 (Scope) / Mục 8 (AC-X) |
+| Q1 | [Câu hỏi nghiệp vụ chưa rõ?] | [Phương án đã chọn] | [1 câu lý do] | Cập nhật Mục 4 (BR-X) / Mục 6 (Scope) / Mục 8 (AC-X) |
 | Q2 | ... | ... | ... | ... |
 
 > ✅ **Sau khi chốt quyết định**: Cập nhật **NGAY** vào Mục 4 (thêm BR mới), Mục 6 (điều chỉnh scope), Mục 8 (sửa AC) để tài liệu là **Source of Truth**.
+> 
+> ⚠️ **Self-Review trước khi trình bày G1**: Đọc lại Section 10, loại bỏ mọi câu hỏi kỹ thuật (có từ khóa: API, endpoint, HTTP, database, format, framework).
+
