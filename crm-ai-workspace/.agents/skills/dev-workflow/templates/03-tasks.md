@@ -1,6 +1,6 @@
 # 03 – Subtask Checklist – <JIRA-KEY>
 
-> **Mục đích**: Tracking tiến độ subtasks. Chi tiết implementation lấy từ `02-design.md` Section 4.
+> **Mục đích**: Tracking tiến độ subtasks. Định hướng giải pháp & tương tác component lấy từ `02-design.md` (Mục 4 & 5).
 > 
 > **Quy tắc**:
 > - Chia theo Nghiệp vụ End-to-End, không theo layer
@@ -37,4 +37,4 @@
 
 ---
 
-> **Note**: AI implement từ `02-design.md`, không cần chi tiết trong file này. Sau mỗi task: build → diff → G3 duyệt.
+> **Note**: AI đọc định hướng từ `02-design.md` và khảo sát mã nguồn thực tế để implement. Không cần chi tiết code trong file này. Sau mỗi task: build → diff → G3 duyệt.

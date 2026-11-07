@@ -1,8 +1,9 @@
 ---
 name: update-workspace
 description: >-
-  Kết thúc đầu bài – cập nhật wiki, commit source code, sync state.
-  Dùng khi dev/review/test xong và cần đồng bộ workspace.
+  Đồng bộ hóa và kết thúc ticket: cập nhật wiki, commit source code submodules (khi duyệt) và hoàn tất state.md.
+  Dùng khi người dùng nói "kết thúc ticket", "sync wiki", "hoàn tất task".
+  Không dùng khi subtask chưa hoàn thành hoặc chưa qua kiểm thử (hãy dùng dev-phase-3-implement).
 ---
 # Update-Workspace (Phase 5 – DEV)
 1. Giao `wiki-maintenance` cập nhật `.wiki/` theo các thay đổi code đã hoàn thành.
@@ -12,3 +13,12 @@ description: >-
 5. **Không commit / không push**: `docs/ba`, `docs/dev`, `docs/sit`, `state.md`.
 6. Chỉ push code submodule khi người dùng yêu cầu.
 7. Cập nhật `state.md`: đánh dấu `[x] Phase 6: Update Wiki & Finish` trong Lifecycle Checklist, chuyển `Overall Progress: 100% (Hoàn thành)`, ghi nhận phiên kết thúc vào `Session Audit Trail`, xóa trạng thái dở dang ở `Current Handover`.
+
+---
+
+## 🛡️ Guard
+- alone: gọi subagent wiki-maintenance cập nhật .wiki/, kiểm tra git status/diff, cập nhật state.md.
+- asks first: commit code submodule, push code submodule lên remote.
+- never: commit/push các thư mục docs/ba, docs/dev, docs/sit, state.md; tự push khi chưa có yêu cầu.
+
+

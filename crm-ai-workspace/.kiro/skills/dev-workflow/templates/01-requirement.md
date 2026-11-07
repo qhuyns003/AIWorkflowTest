@@ -60,28 +60,72 @@
 
 ## 10. Câu hỏi & Quyết định nghiệp vụ
 
-> **🚨 QUAN TRỌNG - Phase 1 = NGHIỆP VỤ ONLY:**
-> - ✅ CHỈ HỎI: Business logic, validation rules (nghiệp vụ), edge cases, data meaning
-> - ❌ KHÔNG HỎI: API path, HTTP method, response format, database choice, framework, code structure
-> 
-> **📖 Tham khảo**: Đọc `reference/question-bank.md` để biết phân biệt câu hỏi nghiệp vụ vs kỹ thuật
-> 
-> **Ví dụ câu hỏi NGHIỆP VỤ hợp lệ**:
-> - ✅ "Số điện thoại có phân biệt định dạng quốc gia (với +84) vs nội địa (với 0) không?"
-> - ✅ "Khách hàng inactive có được search không?"
-> - ✅ "Nếu số điện thoại trùng lặp (nhiều records), trả về record nào?"
-> 
-> **Ví dụ câu hỏi KỸ THUẬT (defer to Phase 2)**:
-> - ❌ "API endpoint path nên là `/api/customers/search?phone=xxx` hay `/api/customers/{phoneNumber}`?"
-> - ❌ "Response format có wrapper object không?"
-> - ❌ "Database dùng H2 in-memory hay file-based?"
+<section_10_guidelines>
+  <phase_1_golden_rule>
+    <title>Phase 1 = NGHIỆP VỤ ONLY</title>
+    <allowed>
+      - ✅ Business logic questions
+      - ✅ Validation rules (what to validate, not which library)
+      - ✅ Edge cases (business scenarios)
+      - ✅ Data meaning (what field represents in business)
+    </allowed>
+    <forbidden>
+      - ❌ API path, HTTP method, response format
+      - ❌ Database choice, framework, code structure
+      - ❌ Technical implementation details
+    </forbidden>
+  </phase_1_golden_rule>
+  
+  <reference>
+    Read reference/question-bank.md for examples distinguishing business vs technical questions
+  </reference>
+  
+  <examples>
+    <business_questions_valid>
+      - ✅ "Số điện thoại có phân biệt định dạng quốc gia (với +84) vs nội địa (với 0) không?"
+      - ✅ "Khách hàng inactive có được search không?"
+      - ✅ "Nếu số điện thoại trùng lặp (nhiều records), trả về record nào?"
+    </business_questions_valid>
+    
+    <technical_questions_defer_to_phase2>
+      - ❌ "API endpoint path nên là /api/customers/search?phone=xxx hay /api/customers/{phoneNumber}?"
+      - ❌ "Response format có wrapper object không?"
+      - ❌ "Database dùng H2 in-memory hay file-based?"
+    </technical_questions_defer_to_phase2>
+  </examples>
+  
+  <self_review_checklist>
+    <instruction>BEFORE presenting at G1, you MUST:</instruction>
+    <items>
+      <item>1. Search this section for keywords: API, endpoint, HTTP, database, format, framework, library</item>
+      <item>2. If ANY keyword found → DELETE that question, note "Defer to Phase 2"</item>
+      <item>3. Verify ALL remaining questions are business-focused</item>
+      <item>4. Ensure each question has 2+ alternatives with pros/cons</item>
+    </items>
+  </self_review_checklist>
+</section_10_guidelines>
 
-| # | Vấn đề cần chốt | Quyết định | Lý do | Impact (cập nhật mục nào?) |
-|---|-----------------|------------|-------|----------------------------|
-| Q1 | [Câu hỏi nghiệp vụ chưa rõ?] | [Phương án đã chọn] | [1 câu lý do] | Cập nhật Mục 4 (BR-X) / Mục 6 (Scope) / Mục 8 (AC-X) |
-| Q2 | ... | ... | ... | ... |
+### Questions Table
 
-> ✅ **Sau khi chốt quyết định**: Cập nhật **NGAY** vào Mục 4 (thêm BR mới), Mục 6 (điều chỉnh scope), Mục 8 (sửa AC) để tài liệu là **Source of Truth**.
-> 
-> ⚠️ **Self-Review trước khi trình bày G1**: Đọc lại Section 10, loại bỏ mọi câu hỏi kỹ thuật (có từ khóa: API, endpoint, HTTP, database, format, framework).
+| # | Vấn đề cần chốt | Phương án | Đề xuất & Lý do | Impact (cập nhật mục nào?) |
+|---|-----------------|-----------|-----------------|----------------------------|
+| Q1 | [Câu hỏi nghiệp vụ chưa rõ?] | A: [Option A]<br>B: [Option B] | Đề xuất: [A/B]<br>Lý do: [1-2 câu] | Cập nhật Mục 4 (BR-X) / Mục 6 (Scope) / Mục 8 (AC-X) |
+| Q2 | ... | A: ...<br>B: ... | Đề xuất: ...<br>Lý do: ... | ... |
+
+### Decisions Made (After G1 Discussion)
+
+| # | Vấn đề | Quyết định đã chốt | Lý do | Đã cập nhật |
+|---|--------|-------------------|-------|-------------|
+| Q1 | [Issue] | [Chosen option] | [Rationale] | ✅ Mục 4 (BR-3), Mục 8 (AC-2) |
+| Q2 | ... | ... | ... | ✅ Mục ... |
+
+<post_g1_instruction>
+  After G1 approval and decisions made:
+  1. Fill "Decisions Made" table above
+  2. Update relevant sections immediately:
+     - Business rule → Add to Section 4 (BR-X)
+     - Scope change → Update Section 6
+     - Acceptance criteria → Update Section 8 (AC-X)
+  3. This document becomes the Source of Truth - keep it synchronized
+</post_g1_instruction>
 
