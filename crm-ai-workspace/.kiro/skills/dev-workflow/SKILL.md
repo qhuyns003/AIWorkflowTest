@@ -22,8 +22,8 @@ Skill này là **Tổng điều phối viên (Orchestrator)** quản lý vòng �
 
 | Phase | Tên Giai Đoạn | Skill Chuyên Trách | Input | Output / Deliverable | Cổng Kiểm Soát (Gate) | Điều Kiện Chuyển Tiếp (Next Transition) |
 |---|---|---|---|---|---|---|
-| **Phase 0** | **Decompose** | `dev-phase-0-decompose` | BRD, Jira ticket, `.wiki/` | `00-brd.md` (BRD Snapshot) + `03-tasks.md` + thư mục `TX-<slug>/` | **Cổng G0**: Dev duyệt danh sách subtasks use-case | Dev gõ "OK" $\to$ Kích hoạt Phase 1 cho T1 |
-| **Phase 1** | **Requirements** *(Mỗi TX)* | `dev-phase-1-requirements` | `00-brd.md`, `03-tasks.md`, wiki, dependency docs | `TX-<slug>/01-requirement.md` (WHAT/WHY) | **Cổng G1-TX**: Dev duyệt nghiệp vụ & chốt AC | Dev gõ "OK" $\to$ Kích hoạt Phase 2 cho TX |
+| **Phase 0** | **Decompose** | `dev-phase-0-decompose` | BRD, Jira ticket, `.wiki/` | `03-tasks.md` + thư mục `TX-<slug>/` | **Cổng G0**: Dev duyệt danh sách subtasks use-case | Dev gõ "OK" $\to$ Kích hoạt Phase 1 cho T1 |
+| **Phase 1** | **Requirements** *(Mỗi TX)* | `dev-phase-1-requirements` | Jira ticket (URL từ 03-tasks.md), `03-tasks.md`, wiki, dependency docs | `TX-<slug>/01-requirement.md` (WHAT/WHY) | **Cổng G1-TX**: Dev duyệt nghiệp vụ & chốt AC | Dev gõ "OK" $\to$ Kích hoạt Phase 2 cho TX |
 | **Phase 2** | **Technical Design** *(Mỗi TX)* | `dev-phase-2-design` | `01-requirement.md`, wiki | `TX-<slug>/02-design.md` (ADR, Flow, Touch Points) | **Cổng G2-TX**: Dev duyệt giải pháp & chốt ADR | Dev gõ "OK" $\to$ Kích hoạt Phase 3 cho TX |
 | **Phase 3** | **Implementation** *(Mỗi TX)* | `dev-phase-3-implement` | `01-req.md`, `02-design.md` | Code changes, Tests, Clean Build Log | **Cổng G3-TX**: Dev duyệt Diff & Build Evidence | Dev gõ "OK, tiếp tục T(X+1)" $\to$ Kích hoạt Phase 1 cho $T_{X+1}$ |
 | **Phase 4** | **Completion** | Orchestrator thực hiện | Toàn bộ ticket changes | Code review report, Jira prompt, State sync | **Nghiệm Thu Ticket**: Dev xác nhận hoàn tất | Dev chạy `update-workspace` (sync wiki, commit) |

@@ -133,14 +133,25 @@ invoke_sub_agent(
 
 **Trình bày tại G2-TX:**
 1. **Checklist**: 7/7 mục hoàn thành + kết quả tự kiểm tra
+
 2. **Tóm tắt thiết kế**:
-   - Effort level (🔴/🟡/🟢) + lý do
-   - **Bảng ADR**: Các quyết định + 2-3 phương án (nếu có nhiều phương án) + đề xuất (✅)
-   - Components to Modify: File path + định hướng
-   - Contracts: API/DB (nếu có)
+   - **Effort level**: 🔴/🟡/🟢 + lý do
+   
+   - **Bảng ADR** (BẮT BUỘC hiện ĐẦY ĐỦ các phương án để dev review trade-offs):
+   
+   ```markdown
+   | # | Quyết định | Phương án A | Phương án B | Phương án C | Đề xuất | Lý do |
+   |---|-----------|-------------|-------------|-------------|---------|-------|
+   | 1 | [Tên QĐ] | [Mô tả A] | [Mô tả B] | [Mô tả C] | ✅ A/B/C | [Ngắn gọn] |
+   ```
+  
+   
+   - **Components to Modify**: Tóm tắt số files touched (X new + Y modify)
+   - **Contracts**: API endpoints / DB schema changes (nếu có)
+
 3. **Kết quả agents**:
-   - `impact-analysis`: Patterns tìm thấy
-   - `design-review`: Issues + đã sửa
+   - `impact-analysis`: Patterns tìm thấy, files touched
+   - `design-review`: Issues phát hiện + cách giải quyết
 
 **Dev cần làm tại G2:**
 - ✅ Review tất cả phương án trong ADR

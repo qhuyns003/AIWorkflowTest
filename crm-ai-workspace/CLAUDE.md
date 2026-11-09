@@ -112,7 +112,6 @@ Khi có nhiều model khả dụng, chọn model phù hợp với độ phức t
 ## Workflow Router
 | Nhiệm vụ / Prompt kích hoạt | Skill kích hoạt | Hồ sơ tài liệu yêu cầu |
 |---|---|---|
-| Typo, config, message (≤3 files, no logic) | `quick-fix` | Không cần tạo docs |
 | Logic change rõ, ≤1 service (Lite mode) | `dev-workflow` | `02-design.md` gọn + `03-tasks.md` |
 | "bắt đầu task <link>", "thực hiện task <link>", "làm ticket <key>" (Full mode) | `dev-workflow` | Đủ bộ `01` → `03` |
 | Khởi tạo / Refresh workspace (DEV) | `clone-workspace` | Đồng bộ submodule & init state |

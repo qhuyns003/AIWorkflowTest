@@ -10,6 +10,13 @@
 
 ---
 
+## Jira Reference
+> **Ticket gốc**: [<JIRA-KEY>](<JIRA-URL-HERE>)
+> 
+> ⚠️ **Lưu ý**: Ticket Jira gốc có thể chứa link, ảnh, attachments. Các phase sau (P1, P2, P3) nên xem trực tiếp trên Jira để có đầy đủ thông tin.
+
+---
+
 ## Subtasks
 
 | ID | Tên (Nghiệp vụ End-to-End) | Service | Phạm vi file | Dependency | AC | Build | Status | Commit |

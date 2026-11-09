@@ -22,7 +22,7 @@
 - Phải trả lời được: "Khách tạo được đơn hàng mới" → **ĐÚNG**
 
 ### 2.2. Giới hạn số lượng: 1-4 subtasks
-- **Nguyên tắc VÀNG**: Mọi task chỉ chia **1-4 subtasks**, càng ít càng tốt
+- **Nguyên tắc VÀNG**: Mọi task chỉ chia **1-4 subtasks**, càng ít càng tốt, nên gom các nghiệp vụ liên quan với nhau thành 1
 - Nếu cần > 4 subtasks → nhóm lại theo nghiệp vụ hoặc tách ticket
 - Lợi ích: Ít commit, dễ review, dễ rollback
 
