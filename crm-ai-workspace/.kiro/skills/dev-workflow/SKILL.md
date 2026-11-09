@@ -48,7 +48,7 @@ Thực thi tuần tự cho từng subtask $T_X \in [T_1, T_2, ..., T_N]$:
 
 #### Bước 2: Phase 2-TX (Thiết Kế Định Hướng)
 - Đọc và áp dụng `.kiro/skills/dev-phase-2-design/SKILL.md`.
-- **Tại Cổng G2-TX**: Trình bày báo cáo checklist 7/7 + Effort Level + Bảng ADR phương án + Touch points table + Kết quả `design-review`.
+- **Tại Cổng G2-TX**: Trình bày báo cáo checklist 7/7 + Bảng ADR phương án + Touch points table + Kết quả `design-review`.
 - **Dừng chờ Dev**: Dev chọn phương án ADR & duyệt G2-TX $\to$ Kích hoạt Phase 3 cho $T_X$.
 
 #### Bước 3: Phase 3-TX (Triển Khai & Kiểm Chứng)

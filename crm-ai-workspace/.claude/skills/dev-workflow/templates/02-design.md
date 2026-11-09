@@ -7,12 +7,11 @@
   <items>
     <item id="1">✅ Đọc TX-&lt;slug&gt;/01-requirement.md (đã duyệt G1)</item>
     <item id="2">✅ Gọi agent impact-analysis</item>
-    <item id="3">✅ Đánh giá effort level (🔴/🟡/🟢)</item>
-    <item id="4">✅ Bảng ADR: mỗi quyết định có 2-3 phương án</item>
-    <item id="5">✅ Luồng xử lý: đi qua đâu, gọi hàm nào</item>
-    <item id="6">✅ Components to Modify: file path + định hướng</item>
-    <item id="7">✅ Build command rõ ràng</item>
-    <item id="8">✅ Gọi agent design-review trước G2</item>
+    <item id="3">✅ Bảng ADR: mỗi quyết định có 2-3 phương án</item>
+    <item id="4">✅ Luồng xử lý: đi qua đâu, gọi hàm nào</item>
+    <item id="5">✅ Components to Modify: file path + định hướng</item>
+    <item id="6">✅ Build command rõ ràng</item>
+    <item id="7">✅ Gọi agent design-review trước G2</item>
   </items>
 </design_checklist>
 
@@ -26,15 +25,7 @@
 
 ---
 
-## 2. Effort & Model
-
-**Effort**: 🔴 High / 🟡 Medium / 🟢 Low  
-**Lý do**: [Độ phức tạp, bất định, tác động quyết định]  
-**Model đề xuất**: [Opus/Sonnet/Flash dựa trên effort]
-
----
-
-## 3. Quyết Định Kỹ Thuật (ADR)
+## 2. Quyết Định Kỹ Thuật (ADR)
 
 | # | Quyết định | Phương án A | Phương án B | Chọn | Lý do |
 |---|-----------|-------------|-------------|------|-------|
@@ -49,7 +40,7 @@
 
 ---
 
-## 4. Luồng Xử Lý
+## 3. Luồng Xử Lý
 
 **Trình tự:** [Mô tả các bước theo thứ tự]
 
@@ -67,7 +58,7 @@
 
 ---
 
-## 5. Hướng Dẫn Triển Khai (WHAT to Change)
+## 4. Hướng Dẫn Triển Khai (WHAT to Change)
 
 | Layer | File Path | Định hướng thay đổi |
 |-------|-----------|---------------------|
@@ -86,7 +77,7 @@
 
 ---
 
-## 6. API Contract (nếu có)
+## 5. API Contract (nếu có)
 
 ### Endpoint: GET /api/customers/search
 
@@ -110,7 +101,7 @@
 
 ---
 
-## 7. Database Changes (nếu có)
+## 6. Database Changes (nếu có)
 
 **Bảng:** `customers`  
 **Thay đổi:**
@@ -129,7 +120,7 @@
 
 ---
 
-## 8. Verification
+## 7. Verification
 
 **Lệnh build:**
 ```bash
@@ -144,7 +135,7 @@ Exit code: 0
 
 ---
 
-## 9. Design Review
+## 8. Design Review
 
 **Agent:** design-review | **Ngày:** [YYYY-MM-DD]
 

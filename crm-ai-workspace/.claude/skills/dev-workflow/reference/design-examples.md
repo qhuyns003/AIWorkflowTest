@@ -14,13 +14,12 @@
   <items>
     <item id="1">✅ Đọc TX-&lt;slug&gt;/01-requirement.md (đã duyệt G1)</item>
     <item id="2">✅ Gọi agent impact-analysis (khảo sát pattern Customer & Repository hiện hữu)</item>
-    <item id="3">✅ Đánh giá effort level (🟡 Medium Effort - Sonnet/Flash)</item>
-    <item id="4">✅ Bảng ADR: 3 quyết định kỹ thuật có 2-3 phương án kèm ưu/nhược và lý do</item>
-    <item id="5">✅ Luồng xử lý: Sequence diagram và step-by-step trace qua từng component</item>
-    <item id="6">✅ Components to Modify: Touch points table với relative file path và định hướng thay đổi</item>
-    <item id="7">✅ API Contract & DB Schema: Đặc tả request/response JSON và Flyway migration</item>
-    <item id="8">✅ Build command & Verification: Lệnh build sạch thực tế</item>
-    <item id="9">✅ Gọi agent design-review trước G2: Đã giải quyết toàn bộ findings</item>
+    <item id="3">✅ Bảng ADR: 3 quyết định kỹ thuật có 2-3 phương án kèm ưu/nhược và lý do</item>
+    <item id="4">✅ Luồng xử lý: Sequence diagram và step-by-step trace qua từng component</item>
+    <item id="5">✅ Components to Modify: Touch points table với relative file path và định hướng thay đổi</item>
+    <item id="6">✅ API Contract & DB Schema: Đặc tả request/response JSON và Flyway migration</item>
+    <item id="7">✅ Build command & Verification: Lệnh build sạch thực tế</item>
+    <item id="8">✅ Gọi agent design-review trước G2: Đã giải quyết toàn bộ findings</item>
   </items>
 </design_checklist>
 
@@ -34,18 +33,7 @@
 
 ---
 
-## 2. Effort Level & Lựa Chọn Model
-
-- **Đánh giá Effort**: 🟡 **Medium Effort**
-- **Lý do**:
-  - Chạm vào 4 components trong 1 service (`service-a`).
-  - Có logic chuẩn hóa SĐT và xử lý phân nhánh tìm kiếm (Active vs Locked).
-  - Không thay đổi cấu trúc bảng chính, chỉ bổ sung composite index để tối ưu tốc độ truy vấn.
-- **Model khuyến nghị cho Phase 3**: **Sonnet / Flash** (Đủ năng lực đọc hiểu code repo hiện hữu và triển khai theo định hướng thiết kế này).
-
----
-
-## 3. Bảng Quyết Định Kỹ Thuật (ADR - Architecture Decision Record)
+## 2. Bảng Quyết Định Kỹ Thuật (ADR - Architecture Decision Record)
 
 | # | Quyết định | Phương án A (Đề xuất) | Phương án B | Phương án C | Chọn | Lý do lựa chọn |
 |---|------------|------------------------|-------------|-------------|------|----------------|
@@ -55,9 +43,9 @@
 
 ---
 
-## 4. Luồng Xử Lý (Sequence Flow)
+## 3. Luồng Xử Lý (Sequence Flow)
 
-### 4.1. Sơ đồ tuần tự
+### 3.1. Sơ đồ tuần tự
 
 ```mermaid
 sequenceDiagram
@@ -95,7 +83,7 @@ sequenceDiagram
   Ctrl-->>Client: 200 OK ApiResponse(data=[...])
 ```
 
-### 4.2. Trình tự thực thi chi tiết
+### 3.2. Trình tự thực thi chi tiết
 1. **Controller Layer**: Tiếp nhận HTTP GET request, trích xuất `@RequestParam("phone") String phone`. Sử dụng Jakarta validation `@NotBlank`.
 2. **Service Layer**:
    - Gọi `PhoneUtils.normalizePhoneNumber(phone)`: Cắt bỏ khoảng trắng, dấu gạch nối, chuyển tiền tố `+84` hoặc `84` thành `0`.
@@ -107,7 +95,7 @@ sequenceDiagram
 
 ---
 
-## 5. Hướng Dẫn Triển Khai (Components to Modify - Touch Points)
+## 4. Hướng Dẫn Triển Khai (Components to Modify - Touch Points)
 
 > 💡 **Lưu ý**: Bảng này chỉ rõ **VỊ TRÍ, PHƯƠNG THỨC và TÁC VỤ CẦN THỰC HIỆN (WHAT)**. Không viết toàn bộ mã nguồn của hàm.
 
@@ -122,9 +110,9 @@ sequenceDiagram
 
 ---
 
-## 6. Đặc Tả Giao Diện & Dữ Liệu (Contracts)
+## 5. Đặc Tả Giao Diện & Dữ Liệu (Contracts)
 
-### 6.1. API Contract
+### 5.1. API Contract
 
 **Endpoint**: `GET /api/v1/customers/search`
 
@@ -168,7 +156,7 @@ sequenceDiagram
 }
 ```
 
-### 6.2. Database Changes (Migration Script)
+### 5.2. Database Changes (Migration Script)
 
 - **Bảng tác động**: `customers`
 - **Thay đổi**: Bổ sung composite index trên 2 cột `(phone_number, status)` để tăng tốc độ truy vấn khi bảng có hàng triệu dòng.
@@ -187,14 +175,14 @@ DROP INDEX IF EXISTS idx_customers_phone_status;
 
 ---
 
-## 7. Kế Hoạch Kiểm Thử & Lệnh Build (Verification)
+## 6. Kế Hoạch Kiểm Thử & Lệnh Build (Verification)
 
-### 7.1. Lệnh build xác minh
+### 6.1. Lệnh build xác minh
 ```powershell
 mvn -q -DskipTests package -f src/service-a/pom.xml
 ```
 
-### 7.2. Phạm vi Unit & Integration Test cần viết tại Phase 3
+### 6.2. Phạm vi Unit & Integration Test cần viết tại Phase 3
 1. `PhoneUtilsTest`:
    - Chuẩn hóa đầu số `+84` $\to$ `0`.
    - Chuẩn hóa chuỗi có dấu cách `0912 345 678` $\to$ `0912345678`.
@@ -208,7 +196,7 @@ mvn -q -DskipTests package -f src/service-a/pom.xml
 
 ---
 
-## 8. Báo Cáo Đánh Giá Của Agent Độc Lập (Design Review)
+## 7. Báo Cáo Đánh Giá Của Agent Độc Lập (Design Review)
 
 - **Agent thực hiện**: `design-review`
 - **Thời điểm thực hiện**: Trước khi trình duyệt Cổng G2

@@ -11,7 +11,7 @@
 3. [Cơ chế hoạt động của AI Agent & Tiết kiệm Token](#3-cơ-chế-hoạt-động-của-ai-agent--tiết-kiệm-token)
 4. [Quy trình phát triển (Workflow Router) & 4 Cổng xác nhận (Gates)](#4-quy-trình-phát-triển-workflow-router--4-cổng-xác-nhận-gates)
 5. [Hướng dẫn sử dụng thực tế (Step-by-Step Guide)](#5-hướng-dẫn-sử-dụng-thực-tế-step-by-step-guide)
-6. [Phân quyền theo Role & Ma trận Model Tiering](#6-phân-quyền-theo-role--ma-trận-model-tiering)
+6. [Phân quyền theo Role](#6-phân-quyền-theo-role)
 7. [Các nguyên tắc an toàn bắt buộc (Non-Negotiable Rules)](#7-các-nguyên-tắc-an-toàn-bắt-buộc-non-negotiable-rules)
 8. [Câu hỏi thường gặp (FAQ)](#8-câu-hỏi-thường-gặp-faq)
 
@@ -244,7 +244,7 @@ AI sẽ:
 
 ---
 
-## 6. Phân quyền theo Role & Ma trận Model Tiering
+## 6. Phân quyền theo Role
 
 ### 6.1. Ma trận phân quyền theo vai trò (Roles Matrix)
 
@@ -253,18 +253,6 @@ AI sẽ:
 | **DEV (Developer)** | `dev-workflow`, `quick-fix` | ✅ **Full Access** (Read/Write) | 📝 Read / Write | 📝 Write (`docs/dev/`) |
 | **PO / BA** | `po-workflow`, `ba-workflow` | ❌ **Không truy cập** | 📖 Read Only | 📝 Write (`docs/ba/`) |
 | **SIT (Tester)** | `sit-workflow` | ❌ **Không truy cập** | 📖 Read Only | 📝 Write (`docs/sit/`) |
-
----
-
-### 6.2. Hướng dẫn tối ưu lựa chọn Mô hình (Model Tiering)
-
-Không nhất thiết phải dùng mô hình mạnh nhất (đắt nhất) cho mọi công đoạn. Hãy chuyển đổi linh hoạt mô hình theo bảng sau để tối ưu hiệu năng và chi phí:
-
-| Giai đoạn / Tác vụ | Mô hình khuyến nghị | Lý do kỹ thuật |
-|---|---|---|
-| **Phase 0 & 1**: Phân rã subtasks, phân tích nghiệp vụ, thiết kế kiến trúc, Review | **High-Tier / Reasoning** | Đòi hỏi tư duy sâu, phân tích logic, bao quát rủi ro edge-cases. |
-| **Phase 2 & 3**: Thiết kế kỹ thuật, lập trình theo kế hoạch đã có | **Medium-Tier / Fast** | Thiết kế đã có sẵn, AI tập trung viết code chuẩn cú pháp và bám sát spec. |
-| **Quick-fix, Viết Unit Test, Viết Docs, Refactor** | **Low-Tier / Ultra-Fast** | Tác vụ mang tính chất lặp lại, cấu trúc rõ ràng, tiết kiệm ngân sách token. |
 
 ---
 

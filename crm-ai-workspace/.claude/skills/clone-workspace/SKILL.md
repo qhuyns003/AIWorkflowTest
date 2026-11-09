@@ -36,15 +36,14 @@ description: >-
          - Nếu deleted files: `cd src/<submodule> && git reset --hard HEAD`
          - Nếu empty: Kiểm tra remote repo có code không
          - Nếu detached: `git checkout <branch> && git pull`
-2. **Kiểm tra `.wiki/`**: Vì `.wiki/` là Source of Truth chung đã được commit/push cùng repo workspace, chỉ kiểm tra thư mục tồn tại. **Tuyệt đối KHÔNG đọc quét mã nguồn để sinh mới hay làm giàu wiki** ở bước này vì gây lãng phí token nghiêm trọng. Việc cập nhật wiki chỉ được thực hiện có chủ đích ở bước kết thúc ticket (`update-workspace`) dựa trên diff thay đổi.
+2. **Kiểm tra `.wiki/`**: Vì `.wiki/` là Source of Truth chung đã được commit/push cùng repo workspace, chỉ kiểm tra thư mục tồn tại. Nếu wiki rỗng hoặc thiếu → **gợi ý user chạy `init-wiki` skill** để khởi tạo wiki đầy đủ LẦN ĐẦU TIÊN. **Tuyệt đối KHÔNG tự động chạy init-wiki** vì đó là skill tốn token lớn và cần xác nhận user.
 3. Kiểm tra CLI/MCP (Jira, Confluence) sẵn sàng; nếu thiếu, hướng dẫn init/auth.
-4. Khởi tạo `state.md` ở workspace root theo mô hình Single-Change: điền Epic/Key, đánh dấu `[x] Phase 0: Workspace Init`, khởi tạo `Current Handover` và dòng Session đầu tiên trong `Session Audit Trail`.
-5. Báo cáo: **tất cả services** đã kéo, branch/commit hash của từng service, trạng thái CLI/MCP và `state.md`. **Checkpoint** trước bước tiếp.
+4. Báo cáo: **tất cả services** đã kéo, branch/commit hash của từng service, trạng thái CLI/MCP và `state.md`. **Checkpoint** trước bước tiếp.
 
 ---
 
 ## 🛡️ Guard
-- alone: đọc .gitmodules, cập nhật submodules, kiểm tra status, khởi tạo state.md.
+- alone: đọc .gitmodules, cập nhật submodules, kiểm tra status
 - asks first: bất kỳ thao tác git reset --hard hoặc ghi đè file có thay đổi chưa lưu.
 - never: tự ý push lên remote; đọc quét mã nguồn để sinh wiki ở bước này.
 

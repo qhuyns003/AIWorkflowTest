@@ -14,9 +14,8 @@
   <items>
     <item id="1">✅ Đọc TX-&lt;slug&gt;/01-requirement.md (đã duyệt G1)</item>
     <item id="2">✅ Gọi agent impact-analysis (khảo sát pattern Customer & Repository hiện hữu)</item>
-    <item id="3">✅ Đánh giá effort level (🟡 Medium Effort - Sonnet/Flash)</item>
-    <item id="4">✅ Bảng ADR: 3 quyết định kỹ thuật có 2-3 phương án kèm ưu/nhược và lý do</item>
-    <item id="5">✅ Luồng xử lý: Sequence diagram và step-by-step trace qua từng component</item>
+    <item id="3">✅ Bảng ADR: 3 quyết định kỹ thuật có 2-3 phương án kèm ưu/nhược và lý do</item>
+    <item id="4">✅ Luồng xử lý: Sequence diagram và step-by-step trace qua từng component</item>
     <item id="6">✅ Components to Modify: Touch points table với relative file path và định hướng thay đổi</item>
     <item id="7">✅ API Contract & DB Schema: Đặc tả request/response JSON và Flyway migration</item>
     <item id="8">✅ Build command & Verification: Lệnh build sạch thực tế</item>

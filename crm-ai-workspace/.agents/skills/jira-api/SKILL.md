@@ -12,6 +12,7 @@ Tương tác với hệ thống Jira thông qua script an toàn [scripts/jira.ps
 ## 1. Triggers (Dấu hiệu kích hoạt)
 Tự động sử dụng skill này khi:
 - Người dùng cung cấp Jira key và yêu cầu đọc nội dung (ví dụ: *"lấy thông tin ticket CRM-102"*, *"đọc yêu cầu từ Jira"*).
+- Ở Phase 0 (Decompose): Kiểm tra trạng thái ticket và subtasks để đề xuất chuyển sang "In Progress".
 - Ở Bước 1 của `dev-workflow`: Cần lấy Description và Acceptance Criteria (AC) từ Jira để soạn tài liệu yêu cầu.
 - Ở Bước 4 của `dev-workflow`: Cần cập nhật trạng thái Jira sang `Ready for Review` / `Done` và comment tóm tắt kết quả.
 
@@ -49,6 +50,33 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\jira.ps1 comment <
 ```
 > [!IMPORTANT]
 > Luôn xác nhận nội dung comment với người dùng trước khi gửi lên Jira.
+
+### 2.5. Xử lý Batch - Chuyển trạng thái nhiều tickets/subtasks
+Khi cần chuyển trạng thái cả parent ticket và các subtasks:
+
+**Quy trình đề xuất:**
+1. Kiểm tra trạng thái hiện tại của parent và subtasks:
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\jira.ps1 get <PARENT-KEY>
+   ```
+2. Hiển thị bảng tóm tắt cho dev:
+   ```
+   Parent: CRM-100 [To Do] → In Progress
+   ├─ Subtask: CRM-101 [To Do] → In Progress
+   ├─ Subtask: CRM-102 [To Do] → In Progress
+   └─ Subtask: CRM-103 [To Do] → In Progress
+   ```
+3. Hỏi dev: "Có muốn chuyển tất cả sang 'In Progress' không? (y/n)"
+4. Nếu dev xác nhận → chạy tuần tự:
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\jira.ps1 transition CRM-100 "In Progress"
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\jira.ps1 transition CRM-101 "In Progress"
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\jira.ps1 transition CRM-102 "In Progress"
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\jira.ps1 transition CRM-103 "In Progress"
+   ```
+
+> [!TIP]
+> Nên hiển thị rõ parent/subtasks để dev dễ review trước khi xác nhận batch transition.
 
 ---
 

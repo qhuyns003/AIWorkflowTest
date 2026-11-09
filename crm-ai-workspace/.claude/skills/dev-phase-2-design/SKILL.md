@@ -19,7 +19,7 @@ description: >-
     <item id="1" required="true">Đọc TX-&lt;slug&gt;/01-requirement.md để đảm bảo thiết kế khớp với yêu cầu đã duyệt</item>
     <item id="2" required="true">Giao cho agent impact-analysis để khảo sát code liên quan đến subtask TX</item>
     <item id="3" required="true">Review các pattern, quy ước, test hiện có trong codebase</item>
-    <item id="4" required="true">Tạo TX-&lt;slug&gt;/02-design.md với TẤT CẢ sections bắt buộc: Effort Level, bảng ADR, Luồng xử lý, Components to Modify, API contracts, DB schema, Verification</item>
+    <item id="4" required="true">Tạo TX-&lt;slug&gt;/02-design.md với TẤT CẢ sections bắt buộc: bảng ADR, Luồng xử lý, Components to Modify, API contracts, DB schema, Verification</item>
     <item id="5" required="true">Với mỗi quyết định kỹ thuật → đưa ra 2-3 phương án kèm ưu/nhược điểm trong bảng ADR</item>
     <item id="6" required="true">TRƯỚC G2-TX: Giao cho agent design-review để kiểm chứng thiết kế</item>
     <item id="7" required="true">Tích hợp các phát hiện từ design-review vào 02-design.md</item>
@@ -135,7 +135,6 @@ invoke_sub_agent(
 1. **Checklist**: 7/7 mục hoàn thành + kết quả tự kiểm tra
 
 2. **Tóm tắt thiết kế**:
-   - **Effort level**: 🔴/🟡/🟢 + lý do
    
    - **Bảng ADR** (BẮT BUỘC hiện ĐẦY ĐỦ các phương án để dev review trade-offs):
    

@@ -134,7 +134,6 @@ invoke_sub_agent(
 **Trình bày tại G2-TX:**
 1. **Checklist**: 7/7 mục hoàn thành + kết quả tự kiểm tra
 2. **Tóm tắt thiết kế**:
-   - Effort level (🔴/🟡/🟢) + lý do
    - **Bảng ADR**: Các quyết định + 2-3 phương án (nếu có nhiều phương án) + đề xuất (✅)
    - Components to Modify: File path + định hướng
    - Contracts: API/DB (nếu có)

@@ -7,9 +7,8 @@
   <items>
     <item id="1">✅ Đọc TX-&lt;slug&gt;/01-requirement.md (đã duyệt G1)</item>
     <item id="2">✅ Gọi agent impact-analysis</item>
-    <item id="3">✅ Đánh giá effort level (🔴/🟡/🟢)</item>
-    <item id="4">✅ Bảng ADR: mỗi quyết định có 2-3 phương án</item>
-    <item id="5">✅ Luồng xử lý: đi qua đâu, gọi hàm nào</item>
+    <item id="3">✅ Bảng ADR: mỗi quyết định có 2-3 phương án</item>
+    <item id="4">✅ Luồng xử lý: đi qua đâu, gọi hàm nào</item>
     <item id="6">✅ Components to Modify: file path + định hướng</item>
     <item id="7">✅ Build command rõ ràng</item>
     <item id="8">✅ Gọi agent design-review trước G2</item>
